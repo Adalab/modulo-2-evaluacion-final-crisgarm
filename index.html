@@ -7,20 +7,26 @@
     <title>Módulo 02 - Evaluación final</title>
   </head>
   <body>
-    <main class="js-main">
-      <h1 class="main__title">Buscador de series</h1>
-      <form action="">
-        <label for="name"></label>
-        <input
-          id="name"
-          type="text"
-          name="name"
-          class="js-input"
-          placeholder="Nombre de la serie"
-        />
-        <button type="button" class="js-button">Search</button>
-      </form>
-      <ul class="js-list"></ul>
+    <main class="main js-main">
+      <section class="main__sectionFavourite">
+        <h1 class="main__title">Buscador de series</h1>
+        <form action="">
+          <label for="name"></label>
+          <input
+            id="name"
+            type="text"
+            name="name"
+            class="js-input"
+            placeholder="Nombre de la serie"
+          />
+          <button type="button" class="js-button">Search</button>
+        </form>
+        <h2 class="main__subtitle">Mis series favoritas</h2>
+        <ul class="main__favourites"></ul>
+      </section>
+      <section class="main__sectionList">
+        <ul class="js-list"></ul>
+      </section>
     </main>
     <script src="./js/main.js"></script>
   </body>

@@ -6,3 +6,18 @@
 .main__title {
   margin-bottom: 10px;
 }
+
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.list__item {
+  background-color: salmon;
+}
+
+.list__item--favourite {
+  background-color: rgb(97, 9, 60);
+  color: white;
+}

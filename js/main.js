@@ -8,7 +8,7 @@ let dataResults = [];
 let listFav = [];
 
 function getInfoFromApi() {
-  fetch("http://api.tvmaze.com/search/shows?q=" + input.value)
+  fetch("//api.tvmaze.com/search/shows?q=" + input.value)
     .then((response) => response.json())
     .then((data) => {
       dataResults = data;
@@ -16,8 +16,10 @@ function getInfoFromApi() {
       listFavourites.innerHTML = "";
       paintSearch();
       listenItem();
-      setInLocalStorage();
     });
+  console.log(
+    "Una vez hago click, me pide la información a la api y me la pinta"
+  );
 }
 
 function paintSearch() {
@@ -33,6 +35,7 @@ function paintSearch() {
     html += `</li>`;
     listContainer.innerHTML += html;
   }
+  console.log("Me pinta la lista de búsqueda");
 }
 
 function paintFavourites() {
@@ -46,7 +49,7 @@ function paintFavourites() {
     for (let r = 0; r < dataResults.length; r++) {
       // console.log("entra aquí 2");
       if (listFav[f] === dataResults[r].show.id) {
-        console.log("entro en este if");
+        console.log("entro en este if y pinta los favoritos");
         content += `<li class="list__item--favourite" id=${dataResults[r].show.id}>`;
         content += `<p>${dataResults[r].show.name}</p>`;
         if (dataResults[r].show.image === null) {
@@ -86,12 +89,15 @@ function favouriteSeries(event) {
     paintFavourites();
     removeFav(itemClicked);
   }
-  console.log(listFav);
+  console.log(
+    "Cuando hago click en cada item, me lo pinta de otro color y lo añade a la columna de la izquierda"
+  );
   setInLocalStorage();
+  console.log("Me guarda el array de fav en el local storage");
 }
 
 function listenItem() {
-  // console.log("Entro en listenItm");
+  console.log("Escucho cada item");
   const listItems = document.querySelectorAll(".js-item");
   for (const listItem of listItems) {
     listItem.addEventListener("click", favouriteSeries);
@@ -103,6 +109,7 @@ function setInLocalStorage() {
 }
 
 function getFromLocalStorage() {
+  console.log("entro de getfromlocalstorage");
   const stringFav = localStorage.getItem("favourites");
   const savedFav = JSON.parse(stringFav);
   if (savedFav === null) {
@@ -114,3 +121,4 @@ function getFromLocalStorage() {
 }
 
 button.addEventListener("click", getInfoFromApi);
+console.log("Se carga la página y hasta que no hago click no pasa nada");

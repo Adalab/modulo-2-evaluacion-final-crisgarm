@@ -16,6 +16,7 @@ function getInfoFromApi() {
       listFavourites.innerHTML = "";
       paintSearch();
       listenItem();
+      setInLocalStorage();
     });
 }
 
@@ -86,6 +87,7 @@ function favouriteSeries(event) {
     removeFav(itemClicked);
   }
   console.log(listFav);
+  setInLocalStorage();
 }
 
 function listenItem() {
@@ -93,6 +95,21 @@ function listenItem() {
   const listItems = document.querySelectorAll(".js-item");
   for (const listItem of listItems) {
     listItem.addEventListener("click", favouriteSeries);
+  }
+}
+
+function setInLocalStorage() {
+  localStorage.setItem("favourites", JSON.stringify(listFav));
+}
+
+function getFromLocalStorage() {
+  const stringFav = localStorage.getItem("favourites");
+  const savedFav = JSON.parse(stringFav);
+  if (savedFav === null) {
+    getInfoFromApi();
+  } else {
+    listFav = savedFav;
+    paintFavourites();
   }
 }
 

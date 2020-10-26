@@ -29,6 +29,7 @@ function getInfoFromApi() {
 }
 
 function paintSearch() {
+  listContainer.innerHTML = "";
   for (let i = 0; i < dataResults.length; i++) {
     const liElement = document.createElement("li");
     const imgElement = document.createElement("img");
@@ -101,8 +102,8 @@ function favouriteSeries(event) {
     }
   }
   const itemClicked = parseInt(event.currentTarget.id);
-  // const check = (fav) => fav.id == event.currentTarget.id;
-  const indexFav = listFav.findIndex((fav) => fav.id == event.currentTarget.id);
+  const check = (fav) => fav.id == event.currentTarget.id;
+  const indexFav = listFav.findIndex(check);
   const isFavourite = indexFav === -1;
   if (isFavourite === true) {
     listFav.push(localFav);

@@ -23,7 +23,6 @@ function getInfoFromApi() {
     .then((response) => response.json())
     .then((data) => {
       dataResults = data;
-      listContainer.innerHTML = "";
       //listFavourites.innerHTML = "";
       paintSearch();
       listenItem();
@@ -32,6 +31,7 @@ function getInfoFromApi() {
 }
 
 function paintSearch() {
+  listContainer.innerHTML = "";
   for (let i = 0; i < dataResults.length; i++) {
     let html = "";
     html += `<li class="js-item list__item" id=${dataResults[i].show.id}>`;
@@ -46,49 +46,23 @@ function paintSearch() {
   }
   //console.log("Me pinta la lista de búsqueda");
 }
-// function paintSearch() {
-//   const liElement = document.createElement("li");
-//   const imgElement = document.createElement("img");
-//   const pElement = document.createElement("p");
-//   const pContent = document.createTextNode(`${dataResults[i].show.name}`);
-//   listContainer.appendChild(liElement);
-//   liElement.classList.add("js-item");
-//   liElement.classList.add("list__item");
-//   liElement.setAttribute("id", `${dataResults[i].show.id}`);
-//   liElement.appendChild(pElement);
-//   pElement.appendChild(pContent);
-//   if (`${dataResults[i].show.image}` === null) {
-//     imgElement.setAttribute =
-//       ("src", "https://via.placeholder.com/210x295/ffffff/666666");
-//   } else {
-//     imgElement.setAttribute = ("src", `${dataResults[i].show.image.medium}`);
-//   }
-//   liElement.appendChild(imgElement);
-// }
 
 function paintFavourites() {
-  if (listFav.length === 0) {
-    //Cuando la lista está vacía, elimina el último li
-    listFavourites.innerHTML = "";
-  }
+  listFavourites.innerHTML = "";
   let content = "";
   for (let f = 0; f < listFav.length; f++) {
     // console.log("entra aquí");
-    for (let r = 0; r < dataResults.length; r++) {
-      // console.log("entra aquí 2");
-      if (listFav[f] === dataResults[r].show.id) {
-        // console.log("entro en este if y pinta los favoritos");
-        content += `<li class="list__item--favourite" id=${dataResults[r].show.id}>`;
-        content += `<p>${dataResults[r].show.name}</p>`;
-        if (dataResults[r].show.image === null) {
-          content += `<img src="https://via.placeholder.com/210x295/ffffff/666666"/>`;
-        } else {
-          content += `<img src="${dataResults[r].show.image.medium}">`;
-        }
-        content += `</li>`;
-        listFavourites.innerHTML = content;
-      }
+    // console.log("entra aquí 2");
+    // console.log("entro en este if y pinta los favoritos");
+    content += `<li class="list__item--favourite" id=${listFav[f].id}>`;
+    content += `<p>${listFav[f].name}</p>`;
+    if (listFav[f].image === null) {
+      content += `<img src="https://via.placeholder.com/210x295/ffffff/666666"/>`;
+    } else {
+      content += `<img src="${listFav[f].image.medium}">`;
     }
+    content += `</li>`;
+    listFavourites.innerHTML = content;
   }
 }
 
@@ -115,10 +89,15 @@ function favouriteSeries(event) {
     }
   }
   const itemClicked = parseInt(event.currentTarget.id);
-  const indexFav = listFav.indexOf(itemClicked);
+  const check = (fav) => fav.id == event.currentTarget.id;
+  const indexFav = listFav.findIndex(check);
+  //console.log(listFav);
+  console.log(indexFav);
+  // console.log(localFav.id);
+  // console.log(itemClicked);
   const isFavourite = indexFav === -1;
   if (isFavourite === true) {
-    listFav.push(itemClicked);
+    listFav.push(localFav);
     addFav(itemClicked);
     paintFavourites();
   } else {
@@ -127,7 +106,7 @@ function favouriteSeries(event) {
     removeFav(itemClicked);
   }
   //console.log("Cuando hago click en cada item, me lo pinta de otro color y lo añade a la columna de la izquierda");
-  console.log(localFav);
+
   setInLocalStorage();
   //console.log("Me guarda el array de fav en el local storage");
 }
@@ -141,7 +120,7 @@ function listenItem() {
 }
 
 function setInLocalStorage() {
-  localStorage.setItem("favourites", JSON.stringify(localFav));
+  localStorage.setItem("favourites", JSON.stringify(listFav));
 }
 
 function getFromLocalStorage() {
@@ -151,7 +130,7 @@ function getFromLocalStorage() {
   if (savedFav === null) {
     getInfoFromApi();
   } else {
-    localFav = savedFav;
+    listFav = savedFav;
     paintFavourites();
   }
 }

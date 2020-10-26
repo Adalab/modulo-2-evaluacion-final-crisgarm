@@ -14,7 +14,7 @@ function search() {
     paragraph.innerHTML = "Introduce the name of the serie";
   } else {
     paragraph.innerHTML = "";
-    getInfoFromApi(); //Aquí deberá pasar primero por getFromLocalStorage(cuando funcione bien);
+    getInfoFromApi();
   }
 }
 
@@ -23,46 +23,58 @@ function getInfoFromApi() {
     .then((response) => response.json())
     .then((data) => {
       dataResults = data;
-      //listFavourites.innerHTML = "";
       paintSearch();
       listenItem();
     });
-  // console.log("Una vez hago click, me pide la información a la api y me la pinta");
 }
 
 function paintSearch() {
-  listContainer.innerHTML = "";
   for (let i = 0; i < dataResults.length; i++) {
-    let html = "";
-    html += `<li class="js-item list__item" id=${dataResults[i].show.id}>`;
-    html += `<p>${dataResults[i].show.name}</p>`;
+    const liElement = document.createElement("li");
+    const imgElement = document.createElement("img");
+    const pElement = document.createElement("p");
+    const pContent = document.createTextNode(`${dataResults[i].show.name}`);
+    listContainer.appendChild(liElement);
+    liElement.classList.add("js-item");
+    liElement.classList.add("list__item");
+    liElement.setAttribute("id", `${dataResults[i].show.id}`);
+    liElement.appendChild(pElement);
+    pElement.appendChild(pContent);
     if (dataResults[i].show.image === null) {
-      html += `<img src="https://via.placeholder.com/210x295/ffffff/666666"/>`;
+      imgElement.setAttribute(
+        "src",
+        "//via.placeholder.com/210x295/ffffff/666666"
+      );
     } else {
-      html += `<img src="${dataResults[i].show.image.medium}">`;
+      const image = dataResults[i].show.image.medium.replace("http:", "");
+      imgElement.setAttribute("src", image);
     }
-    html += `</li>`;
-    listContainer.innerHTML += html;
+    liElement.appendChild(imgElement);
   }
-  //console.log("Me pinta la lista de búsqueda");
 }
 
 function paintFavourites() {
   listFavourites.innerHTML = "";
-  let content = "";
   for (let f = 0; f < listFav.length; f++) {
-    // console.log("entra aquí");
-    // console.log("entra aquí 2");
-    // console.log("entro en este if y pinta los favoritos");
-    content += `<li class="list__item--favourite" id=${listFav[f].id}>`;
-    content += `<p>${listFav[f].name}</p>`;
+    const liElement = document.createElement("li");
+    const imgElement = document.createElement("img");
+    const pElement = document.createElement("p");
+    const pContent = document.createTextNode(`${listFav[f].name}`);
+    listFavourites.appendChild(liElement);
+    liElement.classList.add("list__item--favourite");
+    liElement.setAttribute("id", `${listFav[f].id}`);
+    liElement.appendChild(pElement);
+    pElement.appendChild(pContent);
     if (listFav[f].image === null) {
-      content += `<img src="https://via.placeholder.com/210x295/ffffff/666666"/>`;
+      imgElement.setAttribute(
+        "src",
+        "//via.placeholder.com/210x295/ffffff/666666"
+      );
     } else {
-      content += `<img src="${listFav[f].image.medium}">`;
+      const image = listFav[f].image.medium.replace("http:", "");
+      imgElement.setAttribute("src", image);
     }
-    content += `</li>`;
-    listFavourites.innerHTML = content;
+    liElement.appendChild(imgElement);
   }
 }
 
@@ -91,10 +103,6 @@ function favouriteSeries(event) {
   const itemClicked = parseInt(event.currentTarget.id);
   const check = (fav) => fav.id == event.currentTarget.id;
   const indexFav = listFav.findIndex(check);
-  //console.log(listFav);
-  console.log(indexFav);
-  // console.log(localFav.id);
-  // console.log(itemClicked);
   const isFavourite = indexFav === -1;
   if (isFavourite === true) {
     listFav.push(localFav);
@@ -105,14 +113,10 @@ function favouriteSeries(event) {
     paintFavourites();
     removeFav(itemClicked);
   }
-  //console.log("Cuando hago click en cada item, me lo pinta de otro color y lo añade a la columna de la izquierda");
-
   setInLocalStorage();
-  //console.log("Me guarda el array de fav en el local storage");
 }
 
 function listenItem() {
-  //console.log("Escucho cada item");
   const listItems = document.querySelectorAll(".js-item");
   for (const listItem of listItems) {
     listItem.addEventListener("click", favouriteSeries);
@@ -124,7 +128,6 @@ function setInLocalStorage() {
 }
 
 function getFromLocalStorage() {
-  //console.log("entro de getfromlocalstorage");
   const stringFav = localStorage.getItem("favourites");
   const savedFav = JSON.parse(stringFav);
   if (savedFav === null) {
@@ -136,5 +139,4 @@ function getFromLocalStorage() {
 }
 
 button.addEventListener("click", search);
-console.log("Se carga la página y hasta que no hago click no pasa nada");
 getFromLocalStorage();

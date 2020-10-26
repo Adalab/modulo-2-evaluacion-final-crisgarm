@@ -1,23 +1,77 @@
 * {
   box-sizing: border-box;
   margin: 0;
+  text-decoration: none;
+  list-style: none;
 }
 
-.main__title {
-  margin-bottom: 10px;
+.header__title {
+  text-align: center;
+  font-family: "Anton", sans-serif;
+  background-color: black;
+  color: white;
+  padding: 10px;
 }
 
 .main {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
+  background-color: white;
+  /* background-color: #262626; */
+  height: 100vh;
+}
+.main__sectionFavourite {
+  padding: 15px;
+}
+.main__label {
+  display: block;
+  color: #91979b;
+  font-family: "Anton", sans-serif;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+}
+.main__input {
+  padding: 10px;
+  background-color: #ddd;
+  border: none;
+  border-radius: 4px;
+  width: auto;
 }
 
+.main__button {
+  margin-left: 10px;
+  padding: 10px;
+  text-align: center;
+  background-color: #9b2c7f;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+}
+.main__subtitle {
+  padding: 10px 0;
+  font-family: "Anton", sans-serif;
+  color: #91979b;
+}
+
+.main__list--favourites {
+  font-family: "Montserrat", sans-serif;
+}
+
+.main__list {
+  font-family: "Montserrat", sans-serif;
+}
 .list__item {
   background-color: salmon;
+  width: 220px;
 }
 
 .list__item--favourite {
-  background-color: rgb(97, 9, 60);
+  background-color: #9b2c7f;
   color: white;
+  width: 220px;
 }

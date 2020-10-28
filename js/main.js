@@ -51,6 +51,19 @@ function paintSearch() {
       imgElement.setAttribute("src", image);
     }
     liElement.appendChild(imgElement);
+    const daysElement = document.createElement("p");
+    let daysContent;
+    if (dataResults[i].show.schedule.days.length === 0) {
+      daysContent = document.createTextNode(
+        "No hay días definidos para esta serie"
+      );
+    } else {
+      daysContent = document.createTextNode(
+        `${dataResults[i].show.schedule.days}`
+      );
+    }
+    liElement.appendChild(daysElement);
+    daysElement.appendChild(daysContent);
   }
 }
 
@@ -109,12 +122,30 @@ function favouriteSeries(event) {
     listFav.push(localFav);
     addFav(itemClicked);
     paintFavourites();
+    listenFav();
   } else {
     listFav.splice(indexFav, 1);
     paintFavourites();
+    listenFav();
     removeFav(itemClicked);
   }
   setInLocalStorage();
+}
+
+function showContent(event) {
+  for (let i = 0; i < listFav.length; i++) {
+    if (event.currentTarget.id == listFav[i].id) {
+      console.log(listFav[i].name);
+    }
+  }
+}
+
+function listenFav() {
+  const listFavs = document.querySelectorAll(".list__item--favourite");
+  for (const listFav of listFavs) {
+    listFav.addEventListener("click", showContent);
+    console.log("hola");
+  }
 }
 
 function listenItem() {
@@ -136,6 +167,7 @@ function getFromLocalStorage() {
   } else {
     listFav = savedFav;
     paintFavourites();
+    listenFav();
   }
 }
 

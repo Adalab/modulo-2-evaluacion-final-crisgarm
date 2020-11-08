@@ -11,7 +11,7 @@ let localFav = {};
 
 function search() {
   if (input.value === "") {
-    paragraph.innerHTML = "Introduce the name of the serie";
+    paragraph.innerHTML = "You must enter a TV show name";
   } else {
     paragraph.innerHTML = "";
     getInfoFromApi();
@@ -39,8 +39,6 @@ function paintSearch() {
     liElement.classList.add("js-item");
     liElement.classList.add("list__item");
     liElement.setAttribute("id", `${dataResults[i].show.id}`);
-    liElement.appendChild(pElement);
-    pElement.appendChild(pContent);
     if (dataResults[i].show.image === null) {
       imgElement.setAttribute(
         "src",
@@ -51,19 +49,24 @@ function paintSearch() {
       imgElement.setAttribute("src", image);
     }
     liElement.appendChild(imgElement);
-    const daysElement = document.createElement("p");
-    let daysContent;
-    if (dataResults[i].show.schedule.days.length === 0) {
-      daysContent = document.createTextNode(
-        "No hay días definidos para esta serie"
-      );
-    } else {
-      daysContent = document.createTextNode(
-        `${dataResults[i].show.schedule.days}`
-      );
-    }
-    liElement.appendChild(daysElement);
-    daysElement.appendChild(daysContent);
+    imgElement.classList.add("list__item--image");
+    liElement.appendChild(pElement);
+    pElement.appendChild(pContent);
+    pElement.classList.add("list__item--title");
+    //   const daysElement = document.createElement("p");
+    //   let daysContent;
+    //   if (dataResults[i].show.schedule.days.length === 0) {
+    //     daysContent = document.createTextNode(
+    //       "No hay días definidos para esta serie"
+    //     );
+    //   } else {
+    //     daysContent = document.createTextNode(
+    //       `${dataResults[i].show.schedule.days}`
+    //     );
+    //   }
+    //   liElement.appendChild(daysElement);
+    //   daysElement.appendChild(daysContent);
+    // }
   }
 }
 
@@ -77,8 +80,6 @@ function paintFavourites() {
     listFavourites.appendChild(liElement);
     liElement.classList.add("list__item--favourite");
     liElement.setAttribute("id", `${listFav[f].id}`);
-    liElement.appendChild(pElement);
-    pElement.appendChild(pContent);
     if (listFav[f].image === null) {
       imgElement.setAttribute(
         "src",
@@ -89,6 +90,10 @@ function paintFavourites() {
       imgElement.setAttribute("src", image);
     }
     liElement.appendChild(imgElement);
+    imgElement.classList.add("list__item--favourite-image");
+    liElement.appendChild(pElement);
+    pElement.appendChild(pContent);
+    pElement.classList.add("list__item--favourite-title");
   }
 }
 
@@ -144,7 +149,6 @@ function listenFav() {
   const listFavs = document.querySelectorAll(".list__item--favourite");
   for (const listFav of listFavs) {
     listFav.addEventListener("click", showContent);
-    console.log("hola");
   }
 }
 

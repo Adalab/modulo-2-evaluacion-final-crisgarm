@@ -78,6 +78,10 @@
   &--title {
     padding-bottom: 15px;
   }
+  &:hover {
+    border: 2px solid #9b2c7f;
+    color: #9b2c7f;
+  }
 }
 
 .list__item--favourite {
@@ -91,4 +95,8 @@
     width: 80px;
     border-radius: 14px;
   }
+}
+
+.favourites {
+  width: 80px;
 }

@@ -5,6 +5,7 @@ const button = document.querySelector(".js-button");
 const listContainer = document.querySelector(".js-list");
 const listFavourites = document.querySelector(".js-list-favourites");
 const paragraph = document.querySelector(".js-paragraph");
+const buttonReset = document.querySelector(".js-reset");
 let dataResults = [];
 let listFav = [];
 let localFav = {};
@@ -18,6 +19,7 @@ function search() {
   }
 }
 
+//API
 function getInfoFromApi() {
   fetch("//api.tvmaze.com/search/shows?q=" + input.value)
     .then((response) => response.json())
@@ -28,6 +30,7 @@ function getInfoFromApi() {
     });
 }
 
+//RENDER
 function paintSearch() {
   listContainer.innerHTML = "";
   for (let i = 0; i < dataResults.length; i++) {
@@ -53,20 +56,6 @@ function paintSearch() {
     liElement.appendChild(pElement);
     pElement.appendChild(pContent);
     pElement.classList.add("list__item--title");
-    //   const daysElement = document.createElement("p");
-    //   let daysContent;
-    //   if (dataResults[i].show.schedule.days.length === 0) {
-    //     daysContent = document.createTextNode(
-    //       "No hay días definidos para esta serie"
-    //     );
-    //   } else {
-    //     daysContent = document.createTextNode(
-    //       `${dataResults[i].show.schedule.days}`
-    //     );
-    //   }
-    //   liElement.appendChild(daysElement);
-    //   daysElement.appendChild(daysContent);
-    // }
   }
 }
 
@@ -110,6 +99,7 @@ function removeFav(itemClicked) {
 }
 
 function favouriteSeries(event) {
+  console.log(listFav);
   for (let i = 0; i < dataResults.length; i++) {
     if (event.currentTarget.id == dataResults[i].show.id) {
       localFav = {
@@ -127,29 +117,12 @@ function favouriteSeries(event) {
     listFav.push(localFav);
     addFav(itemClicked);
     paintFavourites();
-    listenFav();
   } else {
     listFav.splice(indexFav, 1);
     paintFavourites();
-    listenFav();
     removeFav(itemClicked);
   }
   setInLocalStorage();
-}
-
-function showContent(event) {
-  for (let i = 0; i < listFav.length; i++) {
-    if (event.currentTarget.id == listFav[i].id) {
-      console.log(listFav[i].name);
-    }
-  }
-}
-
-function listenFav() {
-  const listFavs = document.querySelectorAll(".list__item--favourite");
-  for (const listFav of listFavs) {
-    listFav.addEventListener("click", showContent);
-  }
 }
 
 function listenItem() {
@@ -171,9 +144,17 @@ function getFromLocalStorage() {
   } else {
     listFav = savedFav;
     paintFavourites();
-    listenFav();
   }
 }
 
+function resetFavourites() {
+  listFav = [];
+  localStorage.removeItem("favourites");
+  paintFavourites();
+  paintSearch();
+  listenItem();
+}
+
 button.addEventListener("click", search);
+buttonReset.addEventListener("click", resetFavourites);
 getFromLocalStorage();

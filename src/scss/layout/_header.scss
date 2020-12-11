@@ -1,8 +1,17 @@
-.header__title {
-  text-align: center;
-  font-family: "Anton", sans-serif;
-  font-size: 40px;
+.header {
   background-color: black;
   color: white;
-  padding: 24px;
+  padding: 22px;
+  display: flex;
+  justify-content: center;
+  &__image {
+    filter: invert(1.4);
+    height: 50px;
+    padding-right: 15px;
+  }
+  &__title {
+    text-align: center;
+    font-family: "Anton", sans-serif;
+    font-size: 38px;
+  }
 }

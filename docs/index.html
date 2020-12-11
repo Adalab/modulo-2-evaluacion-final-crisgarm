@@ -3,41 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Módulo 02 - Evaluación final</title>
+    <title>Series finder</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;600;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./assets/css/main.css" />
-    <link rel="icon" href="./assets/images/favicon.png" />
+    <link rel="icon" href="./assets/images/favicon-tv.png" />
+    <script
+      src="https://kit.fontawesome.com/9699a4c6bb.js"
+      crossorigin="anonymous"
+      type="text/javascript"
+    ></script>
   </head>
   <body>
-    <header>
+    <header class="header">
+      <img class="header__image" src="./assets/images/tv-header.png" />
       <h1 class="header__title">Series finder</h1>
     </header>
 
     <main class="main js-main">
-      <section class="main__sectionFavourite">
-        <form action="">
-          <label for="name" class="main__label"
-            >Which serie do you want to see?</label
+      <section class="favouriteSection">
+        <form>
+          <label for="name" class="favouriteSection__label"
+            >What series do you want to watch?</label
           >
           <input
             id="name"
             type="text"
             name="name"
-            class="main__input js-input"
+            class="favouriteSection__input js-input"
             placeholder="Enter a TV show name"
             required
           />
-          <button type="button" class="main__button js-button">Search</button>
+          <button type="button" class="favouriteSection__button js-button">
+            Search
+          </button>
         </form>
-        <p class="main__paragraph js-paragraph"></p>
-        <h2 class="main__subtitle">My favourites</h2>
-        <ul class="js-list-favourites main__list--favourites"></ul>
+        <p class="favouriteSection__paragraph js-paragraph"></p>
+        <h2 class="favouriteSection__subtitle">My favourites</h2>
+        <ul class="js-list-favourites favouriteSection__list"></ul>
+        <button type="reset" class="favouriteSection__buttonReset js-reset">
+          <i class="far fa-trash-alt"></i>
+          Reset favourites
+        </button>
       </section>
-      <section class="main__sectionList">
-        <ul class="main__list js-list"></ul>
+      <section class="searchSection">
+        <ul class="searchSection__list js-list"></ul>
       </section>
     </main>
 

@@ -40,7 +40,7 @@ function paintSearch() {
     const pContent = document.createTextNode(`${dataResults[i].show.name}`);
     listContainer.appendChild(liElement);
     liElement.classList.add("js-item");
-    liElement.classList.add("list__item");
+    liElement.classList.add("searchSection__listItem");
     liElement.setAttribute("id", `${dataResults[i].show.id}`);
     if (dataResults[i].show.image === null) {
       imgElement.setAttribute(
@@ -52,10 +52,10 @@ function paintSearch() {
       imgElement.setAttribute("src", image);
     }
     liElement.appendChild(imgElement);
-    imgElement.classList.add("list__item--image");
+    imgElement.classList.add("searchSection__listItem--image");
     liElement.appendChild(pElement);
     pElement.appendChild(pContent);
-    pElement.classList.add("list__item--title");
+    pElement.classList.add("searchSection__listItem--title");
   }
 }
 
@@ -67,7 +67,7 @@ function paintFavourites() {
     const pElement = document.createElement("p");
     const pContent = document.createTextNode(`${listFav[f].name}`);
     listFavourites.appendChild(liElement);
-    liElement.classList.add("list__item--favourite");
+    liElement.classList.add("favouriteSection__listItem");
     liElement.setAttribute("id", `${listFav[f].id}`);
     if (listFav[f].image === null) {
       imgElement.setAttribute(
@@ -79,23 +79,23 @@ function paintFavourites() {
       imgElement.setAttribute("src", image);
     }
     liElement.appendChild(imgElement);
-    imgElement.classList.add("list__item--favourite-image");
+    imgElement.classList.add("favouriteSection__listItem--image");
     liElement.appendChild(pElement);
     pElement.appendChild(pContent);
-    pElement.classList.add("list__item--favourite-title");
+    pElement.classList.add("favouriteSection__listItem--title");
   }
 }
 
 function addFav(itemClicked) {
   const liElement = document.getElementById(itemClicked);
-  liElement.classList.remove("list__item");
-  liElement.classList.add("list__item--favourite");
+  liElement.classList.remove("searchSection__listItem");
+  liElement.classList.add("searchSection__listItem--favourite");
 }
 
 function removeFav(itemClicked) {
   const liElement = document.getElementById(itemClicked);
-  liElement.classList.remove("list__item--favourite");
-  liElement.classList.add("list__item");
+  liElement.classList.remove("searchSection__listItem--favourite");
+  liElement.classList.add("searchSection__listItem");
 }
 
 function favouriteSeries(event) {

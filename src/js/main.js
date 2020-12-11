@@ -91,7 +91,20 @@ function paintFavourites() {
       "favouriteSection__listItem--button",
       "js-removeButtons"
     );
+    buttonFav.setAttribute("data-id", listFav[f].id);
+    buttonFav.addEventListener("click", removeFavourites);
   }
+}
+
+function removeFavourites(event) {
+  for (let r = 0; r < listFav.length; r++) {
+    if (parseInt(event.currentTarget.dataset.id) === parseInt(listFav[r].id)) {
+      listFav.splice([r], 1);
+    }
+  }
+  paintFavourites();
+  paintSearch();
+  listenItem();
 }
 
 function addFav(itemClicked) {

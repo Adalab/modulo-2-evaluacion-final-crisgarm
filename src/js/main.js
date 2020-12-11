@@ -66,6 +66,8 @@ function paintFavourites() {
     const imgElement = document.createElement("img");
     const pElement = document.createElement("p");
     const pContent = document.createTextNode(`${listFav[f].name}`);
+    const buttonFav = document.createElement("button");
+    const buttonContent = document.createTextNode("X");
     listFavourites.appendChild(liElement);
     liElement.classList.add("favouriteSection__listItem");
     liElement.setAttribute("id", `${listFav[f].id}`);
@@ -83,6 +85,12 @@ function paintFavourites() {
     liElement.appendChild(pElement);
     pElement.appendChild(pContent);
     pElement.classList.add("favouriteSection__listItem--title");
+    liElement.appendChild(buttonFav);
+    buttonFav.appendChild(buttonContent);
+    buttonFav.classList.add(
+      "favouriteSection__listItem--button",
+      "js-removeButtons"
+    );
   }
 }
 

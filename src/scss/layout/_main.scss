@@ -48,10 +48,27 @@
     font-family: "Montserrat", sans-serif;
   }
   &__listItem {
-    width: 80px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-bottom: 10px;
     &--image {
       width: 80px;
       border-radius: 14px;
+    }
+    &--title {
+      padding: 0 6px;
+      font-size: 10px;
+      color: white;
+    }
+    &--button {
+      font-size: 11px;
+      width: 23px;
+      height: 23px;
+      border-radius: 50%;
+      background-color: black;
+      color: white;
+      border: none;
     }
   }
 }

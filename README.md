@@ -37,6 +37,10 @@ Una vez aparecen los resultados de búsqueda, la usuaria puede indicar cuáles s
 
 El listado de favoritos se almacena en el localStorage. De esta forma, al recargar la página la series favoritas se siguen mostrando.
 
+## Previsualización aplicación
+
+<img alt="Previsualización aplicación" title="Previsualización aplicación" src="src/images/series-finder-preview.png"/>
+
 ## Instalación
 
 Para poder usar este proyecto tienes que seguir estos pasos:

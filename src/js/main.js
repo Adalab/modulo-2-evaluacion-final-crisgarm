@@ -120,9 +120,8 @@ function removeFav(itemClicked) {
 }
 
 function favouriteSeries(event) {
-  console.log(listFav);
   for (let i = 0; i < dataResults.length; i++) {
-    if (event.currentTarget.id == dataResults[i].show.id) {
+    if (parseInt(event.currentTarget.id) === dataResults[i].show.id) {
       localFav = {
         id: dataResults[i].show.id,
         name: dataResults[i].show.name,
@@ -131,7 +130,7 @@ function favouriteSeries(event) {
     }
   }
   const itemClicked = parseInt(event.currentTarget.id);
-  const check = (fav) => fav.id == event.currentTarget.id;
+  const check = (fav) => parseInt(fav.id) === itemClicked;
   const indexFav = listFav.findIndex(check);
   const isFavourite = indexFav === -1;
   if (isFavourite === true) {
